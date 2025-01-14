@@ -4,6 +4,12 @@ import Login from './Login'
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false)
+  const [darkMode , setDarkMode] = useState(false)
+
+  const toggleDarkMode = () =>{
+    setDarkMode(!darkMode)
+    document.documentElement.classList.toggle('dark');
+  }
  
   
     useEffect(()=>{
@@ -34,7 +40,9 @@ const Navbar = () => {
   return (
     <div className={`max-w-screen-2xl container mx-auto md:px-20 px-4 
        fixed top-0 left-0 right-0 z-50
-    ${sticky ? "sticky-Navbar shadow-md bg-base-200  duration-300 transition-all ease-in-out":""}`}>
+       ${darkMode ? "dark:bg-gray-900 dark:text-white" : ""}
+    ${sticky ? "sticky-Navbar shadow-md bg-base-200 dark:bg-gray-800 dark:text-white duration-300 transition-all ease-in-out":""}
+      `}>
         <div className="navbar ">
   <div className="navbar-start">
     <div className="dropdown">
@@ -54,7 +62,8 @@ const Navbar = () => {
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 
+        shadow dark:bg-gray-900 dark:text-white">
         {navItem}
       
       </ul>
@@ -69,7 +78,7 @@ const Navbar = () => {
   </div>
   <div className='hidden md:block'>
   <label className="px-3 py-1 border rounded-md flex items-center gap-2">
-  <input type="text" className="grow outline-none" placeholder="Search" />
+  <input type="text" className="grow outline-none dark:bg-gray-900 dark:text-white" placeholder="Search" />
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
@@ -85,10 +94,11 @@ const Navbar = () => {
 
   <label className="swap swap-rotate">
   {/* this hidden checkbox controls the state */}
-  <input type="checkbox" className="theme-controller" value="synthwave" />
+  <input type="checkbox" className="theme-controller " value="synthwave" />
 
   {/* sun icon */}
   <svg 
+  onClick={toggleDarkMode}
     className="swap-off h-7 w-7 fill-current"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24">
@@ -98,6 +108,7 @@ const Navbar = () => {
 
   {/* moon icon */}
   <svg 
+  onClick={toggleDarkMode}
     className="swap-on h-7 w-7 fill-current"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24">

@@ -13,7 +13,7 @@ const Login = () => {
 
   return (
     <div>
-      <dialog id="my_modal_3" className="modal">
+      <dialog id="my_modal_3" className="modal ">
   <div className="modal-box">
     <form method="dialog" onSubmit={handleSubmit(onSubmit)}>
       {/* if there is a button in form, it will close the modal */}

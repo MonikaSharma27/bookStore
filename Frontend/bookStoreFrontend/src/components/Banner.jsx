@@ -35,7 +35,7 @@ const Banner = () => {
       </div>
 
       <div id="right" className=" md:w-[50%] order-1 ">
-       <div className="w-[90%] mx-auto my-auto">
+       <div className="w-[70%] mx-auto my-auto mt-12 md:mt-28">
         <img src={image} alt="" className="w-92 h-92"/>
        </div>
       </div>
