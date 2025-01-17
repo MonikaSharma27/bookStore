@@ -1,16 +1,42 @@
 import React from 'react'
 import { VscChromeClose } from "react-icons/vsc";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form"
+import axios from "axios"
+import toast from 'react-hot-toast';
 
 const Signup = () => {
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const from = location.state?.from?.pathname||"/"
 
     const {
         register,
         handleSubmit,
         formState: { errors },
       } = useForm()
-      const onSubmit = (data) => console.log(data)
+      const onSubmit = async (data) => {
+        const userInfo = {
+          fullname: data.fullname,
+          email:data.email,
+          password:data.password,
+        }
+       await axios.post("http://localhost:4001/user/signup" , userInfo)
+        .then((res)=>{
+          console.log(res.data)
+          if(res.data){
+            toast.success("signup successfull");
+           navigate(from, {replace:true})
+          }
+          localStorage.setItem("Users",JSON.stringify(res.data.user))
+        }).catch((err) => {
+          if(err.response){
+            console.log(err);
+            toast.error("Error: " + err.response.data.message);
+          }
+        })
+      }
   return (
     <div className='w-[90vw] mx-auto  py-4 my-10 h-screen flex justify-center items-center '>
         <div className='border-2 shadow-md w-full md:w-[30%] px-4 rounded-md '>
@@ -27,9 +53,9 @@ const Signup = () => {
                 <input type="text"
                  placeholder='Enter your name'
                  className=' px-3 border rounded-md outline-none py-1 w-full' 
-                 {...register("name", { required: true })}/>
+                 {...register("fullname", { required: true })}/>
                   <br />
-                  {errors.email && <span className='text-sm text-red-500'>This field is required</span>}
+                  {errors.fullname && <span className='text-sm text-red-500'>This field is required</span>}
             </div>
             
             <div className='mt-4 space-y-2'>
@@ -51,7 +77,7 @@ const Signup = () => {
                  className=' px-3 border rounded-md outline-none py-1 w-full' 
                  {...register("password", { required: true })}/>
                   <br />
-                  {errors.email && <span className='text-sm text-red-500'>This field is required</span>}
+                  {errors.password && <span className='text-sm text-red-500'>This field is required</span>}
             </div>
 
            
