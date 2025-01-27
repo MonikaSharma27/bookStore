@@ -7,11 +7,6 @@ import bookRoute from "./Routes/book.route.js";
 import cors from "cors";
 
 
-
-
-
-
-
 const app = express()
 app.use(cors());
 app.use(express.json())
